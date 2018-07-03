@@ -11,10 +11,6 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by pante on 20.06.2018.
- */
-
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -30,14 +26,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public void save(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        Set<Role> roleSet = new HashSet<>();
-        roleSet.add(roleDao.getOne(1L));
-        user.setRoles(roleSet);
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleDao.getOne(1L));
+        user.setRoles(roles);
         userDao.save(user);
     }
 
     @Override
-    public User findByUserName(String userName) {
-        return userDao.findByUserName(userName);
+    public User findByUsername(String username) {
+        return userDao.findByUsername(username);
     }
 }

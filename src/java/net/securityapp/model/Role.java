@@ -5,15 +5,15 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name="roles")
+@Table(name = "roles")
 public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "rolename")
-    private String rolename;
+    @Column(name = "name")
+    private String name;
 
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
@@ -29,12 +29,12 @@ public class Role {
         this.id = id;
     }
 
-    public String getRolename() {
-        return rolename;
+    public String getName() {
+        return name;
     }
 
-    public void setRolename(String rolename) {
-        this.rolename = rolename;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Set<User> getUsers() {
@@ -49,7 +49,7 @@ public class Role {
     public String toString() {
         return "Role{" +
                 "id=" + id +
-                ", rolename='" + rolename + '\'' +
+                ", name='" + name + '\'' +
                 ", users=" + users +
                 '}';
     }

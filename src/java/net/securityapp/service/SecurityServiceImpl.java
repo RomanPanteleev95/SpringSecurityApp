@@ -22,25 +22,27 @@ public class SecurityServiceImpl implements SecurityService {
     private UserDetailsService userDetailsService;
 
     @Override
-    public String findLoggedInUserName() {
+    public String findLoggedInUsername() {
         Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
-        if (userDetails instanceof UserDetails){
+        if (userDetails instanceof UserDetails) {
             return ((UserDetails) userDetails).getUsername();
         }
+
         return null;
     }
 
     @Override
-    public void autoLogin(String userName, String password) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(userName);
+    public void autoLogin(String username, String password) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
 
         authenticationManager.authenticate(authenticationToken);
-        if (authenticationToken.isAuthenticated()){
-            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-        }
 
-        logger.debug(String.format("Success %s aouto logg in", userName));
+        if (authenticationToken.isAuthenticated()) {
+            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+
+            logger.debug(String.format("Successfully %s auto logged in", username));
+        }
     }
 }
